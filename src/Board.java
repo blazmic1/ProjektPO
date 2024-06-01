@@ -13,7 +13,6 @@ public class Board extends JPanel {
     Random random = new Random();
 
     public Board() {
-        JPanel panel = new JPanel();
         this.setSize(new Dimension(cols * tilesize, rows * tilesize));
         humans = new ArrayList<>();
         objects = new ArrayList<>();
@@ -60,7 +59,7 @@ public class Board extends JPanel {
     public int getHealthyCount() {
         int count = 0;
         for (Human human : humans) {
-            if (human instanceof Healthy && !((Healthy) human).immune) {
+            if (human instanceof Healthy && !human.immune) {
                 count++;
             }
         }
@@ -80,17 +79,16 @@ public class Board extends JPanel {
     public int getImmuneCount() {
         int count = 0;
         for (Human human : humans) {
-            if (human instanceof Healthy && ((Healthy) human).immune) {
+            if (human instanceof Healthy && human.immune) {
                 count++;
             }
         }
         return count;
     }
 
-    public int getDeadCount() {
-        // Implement logic if you track dead humans
-        return 0;
-    }
+//    public int getDeadCount() {
+//
+//    }
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -129,9 +127,10 @@ public class Board extends JPanel {
                 //    g2d.setColor(Color.red); // chory przenoszacy
                     g2d.drawImage(infectedImage,human.x * tilesize, human.y * tilesize, tilesize, tilesize,this);
                 }
-                else
+                else{
                  //   g2d.setColor((Color.black)); //chory nieprzenoszacy
                 g2d.drawImage(notTransmiting,human.x * tilesize, human.y * tilesize, tilesize, tilesize,this);
+                }
             }
            // g2d.fillOval(human.x * tilesize, human.y * tilesize, tilesize, tilesize);
 
