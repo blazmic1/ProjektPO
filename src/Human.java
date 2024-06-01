@@ -3,6 +3,5 @@ public class Human extends Object {
     int age;
     boolean infection;
      boolean immune;
-
-
 }
+

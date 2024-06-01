@@ -26,6 +26,7 @@ public void heal(Hospital hospital,Infected infected, List<Human> humans, List<O
         }
     }
 
+
     int getDurabilit(Hospital hospital){
         return hospital.durability;
     }

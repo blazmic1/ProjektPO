@@ -3,7 +3,6 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.Scanner;
 
 public class Board extends JPanel {
     int tilesize = 30;
@@ -14,27 +13,18 @@ public class Board extends JPanel {
     Random random = new Random();
 
     public Board() {
-        this.setPreferredSize(new Dimension(cols * tilesize, rows * tilesize));
-        this.setBackground(Color.gray);
+        JPanel panel = new JPanel();
+        this.setSize(new Dimension(cols * tilesize, rows * tilesize));
         humans = new ArrayList<>();
         objects = new ArrayList<>();
-        populateBoard();
     }
 
-    private void populateBoard() {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("Podaj ilosc osob zdrowych:");
-        int healthyPeople = scanner.nextInt();
-
+    public void populateBoard(int healthyPeople, int infectedTransmitingPeople, int infectedNotTransmitingPeople, int immune, int vaccines, int hospitals) {
         for (int i = 0; i < healthyPeople; i++) {
             int x = random.nextInt(cols);
             int y = random.nextInt(rows);
             humans.add(new Healthy(x, y, random.nextInt(100), 100, false, 0.1, false, 0, true));
         }
-
-        System.out.println("Podaj ilosc osob chorych przenoszacych chorobe:");
-        int infectedTransmitingPeople = scanner.nextInt();
 
         for (int i = 0; i < infectedTransmitingPeople; i++) {
             int x = random.nextInt(cols);
@@ -42,17 +32,11 @@ public class Board extends JPanel {
             humans.add(new Infected(x, y, random.nextInt(100), 100, true, 14, true));
         }
 
-        System.out.println("Podaj ilosc osob chorych nieprzenoszacych chorobe:");
-        int infectedNotTransmitingPeople = scanner.nextInt();
-
         for (int i = 0; i < infectedNotTransmitingPeople; i++) {
             int x = random.nextInt(cols);
             int y = random.nextInt(rows);
             humans.add(new Infected(x, y, random.nextInt(100), 100, true, 14, false));
         }
-
-        System.out.println("Podaj ilosc osob odpornych:");
-        int immune = scanner.nextInt();
 
         for (int i = 0; i < immune; i++) {
             int x = random.nextInt(cols);
@@ -60,21 +44,52 @@ public class Board extends JPanel {
             humans.add(new Healthy(x, y, random.nextInt(100), 100, false, 0, true, 50, false));
         }
 
-        System.out.println("Podaj ilosc szczepionek:");
-        int vaccines = scanner.nextInt();
         for (int i = 0; i < vaccines; i++) {
             int x = random.nextInt(cols);
             int y = random.nextInt(rows);
             objects.add(new Vaccine(x, y, random.nextDouble()));
         }
 
-        System.out.println("Podaj ilosc Szpitali:");
-        int hospitals = scanner.nextInt();
         for (int i = 0; i < hospitals; i++) {
             int x = random.nextInt(cols);
             int y = random.nextInt(rows);
             objects.add(new Hospital(x, y, random.nextInt(10)));
         }
+    }
+
+    public int getHealthyCount() {
+        int count = 0;
+        for (Human human : humans) {
+            if (human instanceof Healthy && !((Healthy) human).immune) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public int getInfectedCount() {
+        int count = 0;
+        for (Human human : humans) {
+            if (human instanceof Infected) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public int getImmuneCount() {
+        int count = 0;
+        for (Human human : humans) {
+            if (human instanceof Healthy && ((Healthy) human).immune) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public int getDeadCount() {
+        // Implement logic if you track dead humans
+        return 0;
     }
 
     @Override
@@ -91,47 +106,104 @@ public class Board extends JPanel {
         }
 
         // Rysowanie agentów
+        Image healthyImage = new ImageIcon("healthy.png").getImage();
+        Image infectedImage = new ImageIcon("ill.png").getImage();
+        Image immuneImage = new ImageIcon("immune.jpg").getImage();
+        Image notTransmiting = new ImageIcon("notTransmiting1.png").getImage();
+        Image Hospital = new ImageIcon("Hospital1.jpg").getImage();
+        Image Vaccine = new ImageIcon("Vaccine1.png").getImage();
+
         for (Human human : humans) {
-            if (human instanceof Healthy) {
-                Healthy healthy = (Healthy) human;
+            if (human instanceof Healthy healthy) {
 
                 if (healthy.immune) {
-                    g2d.setColor(Color.CYAN); //odporny
+                 //   g2d.setColor(Color.CYAN); //odporny
+                    g2d.drawImage(immuneImage,human.x * tilesize, human.y * tilesize, tilesize, tilesize,this);
                 } else {
-                    g2d.setColor(Color.green); // zdrowy
+                   // g2d.setColor(Color.green);// zdrowy
+                    g2d.drawImage(healthyImage,human.x * tilesize, human.y * tilesize, tilesize, tilesize,this);
                 }
 
-            } else if (human instanceof Infected) {
-                Infected infected = (Infected) human;
-                if (infected.canTransmit)
-                    g2d.setColor(Color.red); // chory przenoszacy
+            } else if (human instanceof Infected infected) {
+                if (infected.canTransmit) {
+                //    g2d.setColor(Color.red); // chory przenoszacy
+                    g2d.drawImage(infectedImage,human.x * tilesize, human.y * tilesize, tilesize, tilesize,this);
+                }
                 else
-                    g2d.setColor((Color.black)); //chory nieprzenoszacy
+                 //   g2d.setColor((Color.black)); //chory nieprzenoszacy
+                g2d.drawImage(notTransmiting,human.x * tilesize, human.y * tilesize, tilesize, tilesize,this);
             }
-            g2d.fillOval(human.x * tilesize, human.y * tilesize, tilesize, tilesize);
+           // g2d.fillOval(human.x * tilesize, human.y * tilesize, tilesize, tilesize);
+
         }
 
         // Rysowanie obiektow
         for (Object object : objects) {
             if (object instanceof Vaccine) {
+                //szczepionki
                 g2d.setColor(Color.ORANGE);
+                g2d.drawImage(Vaccine,object.x * tilesize, object.y * tilesize, tilesize, tilesize,this);
+
             } else if (object instanceof Hospital) {
+                //szpital
                 g2d.setColor(Color.BLUE);
+                g2d.drawImage(Hospital,object.x * tilesize, object.y * tilesize, tilesize, tilesize,this);
             }
-            g2d.fillRect(object.x * tilesize, object.y * tilesize, tilesize, tilesize);
+          //  g2d.fillRect(object.x * tilesize, object.y * tilesize, tilesize, tilesize);
         }
     }
 
     public void updateSimulation() {
+        List<Human> newHumans = new ArrayList<>(humans);
+        List<Object> newObjects = new ArrayList<>(objects);
 
-        List<Human> humansCopy = new ArrayList<>(humans);
         // Poruszanie sie
         for (Human human : humans) {
             moveHuman(human);
-
         }
 
+//        // Infekowanie zdrowych
+//        for (Human human : humans) {
+//            if (human instanceof Infected) {
+//                for (Human other : humans) {
+//                    if (other instanceof Healthy) {
+//                        ((Infected) human).infect((Infected) human, (Healthy) other, newHumans);
+//                    }
+//                }
+//            }
+//        }
 
+//        // Zdrowienie chorych
+//        for (Human human : humans) {
+//            if (human instanceof Infected) {
+//                //((Infected) human).recover((Infected) human, (Healthy) human, newHumans);
+//            }
+//        }
+
+//        // Leczenie w szpitalach
+//        for (Object object : objects) {
+//            if (object instanceof Hospital) {
+//                for (Human human : humans) {
+//                    if (human instanceof Infected) {
+//                        ((Hospital) object).heal((Hospital) object, (Infected) human, newHumans, newObjects);
+//                    }
+//                }
+//            }
+//        }
+
+//        Szczepienie zdrowych
+//        for (Object object : objects) {
+//            if (object instanceof Vaccine) {
+//                for (Human human : humans) {
+//                    if (human instanceof Healthy) {
+//                       // ((Vaccine) object).vaccine((Vaccine) object, (Healthy) human, newHumans, newObjects);
+//                    }
+//                }
+//            }
+//        }
+
+        humans = newHumans;
+        objects = newObjects;
 
         repaint();
     }
@@ -153,41 +225,4 @@ public class Board extends JPanel {
             human.y = newY;
         }
     }
-
-    // Leczenie poprzez szpital
-    public void heal(Hospital hospital, Infected infected, List<Human> humans, List<Object> objects) {
-        if (infected.x == hospital.x && infected.y == hospital.y) {
-            Random random = new Random();
-            if (hospital.durability > 0) {
-                humans.remove(infected);
-                humans.add(new Healthy(infected.x, infected.y, random.nextInt(100), 100, false, 0.1, true, 14, true));
-                hospital.durability--;
-            } else {
-                objects.remove(hospital);
-            }
-        }
-    }
-
-
-    //szczepeinie zdrowych
-    private void vaccine(Vaccine vaccine, Healthy healthy, List<Human> humans, List<Object> objects) {
-        if (healthy.x == vaccine.x && healthy.y == vaccine.y && healthy.canBeVaccinated) {
-            if (vaccine.effectiveness > random.nextDouble()) {
-                humans.remove(healthy);
-                humans.add(new Healthy(healthy.x, healthy.y, random.nextInt(100), 100, false, 0, true, 50, false));
-                objects.remove(vaccine);
-            }
-        }
-    }
-
-    //zdrowienie chorych po pewnym czasie
-    private void recover(Infected infected, Healthy healthy , List<Human> humans){
-        if (infected.infectionLength < 0) {
-            humans.remove(infected);
-            humans.add(new Healthy(healthy.x, healthy.y, random.nextInt(100), 100, false, 0, true, 50, false));
-        }
-    }
 }
-
-
-
