@@ -19,10 +19,10 @@ Na planszy występują dwa obiekty tj. szpitale ,które leczą osoby chore oraz 
 Użytkownik na początku symulacji podaje ilość osób zdrowych,odpornych,chorych nieprzenoszące wirus oraz ilość szpitali,szczepionek i tur.
 
 ## Zaimplementowane funkcjonalności
-- stworzenie mapy (grid 2D)
+- stworzenie mapy
 - stworzenie ludzi(zdrowych,chorych,odpornych,chorych nie przenoszących)
 - stworzenie obiektów(szpitali i szczepionek)
 - stworzenie funkcji aktualizującej mapę
 - stworzenie funkcji odpowiadajacych za funkcjonalność epidemii m.in.przenoszenie choroby,zdrowieniem czy np.szczepieniami
 
-![Diagram klas i obiektów](Diagram klas (1).png)
+![Diagram klas i obiektów](Diagram klas (1))
