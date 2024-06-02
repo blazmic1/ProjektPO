@@ -10,7 +10,7 @@ Projekt został wykonany w języku Java z wykorzystaniem biblioteki Swing
 ## Opis projektu
 Jako zaliczenie została stworzona symulacja epidemii.
 Symulacja polega na sprawdzeniu przebiegu epidemii.Występuje kilka typów ludzi tj. osoby:
--zdrowe
+-zdrowe <br />
 -odporne
 -chore,
 -chore nieprzenoszące wirus
