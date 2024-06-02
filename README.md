@@ -25,4 +25,4 @@ Użytkownik na początku symulacji podaje ilość osób zdrowych,odpornych,chory
 - stworzenie funkcji aktualizującej mapę
 - stworzenie funkcji odpowiadajacych za funkcjonalność epidemii m.in.przenoszenie choroby,zdrowieniem czy np.szczepieniami
 
-![Diagram klas i obiektów](Diagram klas (1))
+![Diagram klas (1)](https://github.com/blazmic1/ProjektPO/assets/170235193/11fc7520-8795-4b5b-8c6b-c0fd68f337fd)
