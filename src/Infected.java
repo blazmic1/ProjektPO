@@ -25,13 +25,12 @@ public class Infected extends Human {
              }
          }
      }
-        void recover(Infected infected,Healthy healthy, List<Human> humans ){
-            if (infected.infectionLength <= 0 )
-            {
-             humans.remove(infected);
-             humans.add(new Healthy(infected.x, infected.y, random.nextInt(100), 100, false, 0, true, 50, false));
-            }
-         }
+    void recover(List<Human> humans) {
+        if (this.infectionLength <= 0) {
+            humans.remove(this);
+            humans.add(new Healthy(this.x, this.y, random.nextInt(100), 100, false, 0.1, false, 0, true));
+        }
+    }
 
 
 }

@@ -40,7 +40,7 @@ public class Board extends JPanel {
         for (int i = 0; i < immune; i++) {
             int x = random.nextInt(cols);
             int y = random.nextInt(rows);
-            humans.add(new Healthy(x, y, random.nextInt(100), 100, false, 0, true, 50, false));
+            humans.add(new Healthy(x, y, random.nextInt(100), 100, false, 0, true, 14, false));
         }
 
         for (int i = 0; i < vaccines; i++) {
@@ -138,8 +138,8 @@ public class Board extends JPanel {
 
         // Rysowanie obiektow
         for (Object object : objects) {
+            //szczepionki
             if (object instanceof Vaccine) {
-                //szczepionki
                 g2d.setColor(Color.ORANGE);
                 g2d.drawImage(Vaccine,object.x * tilesize, object.y * tilesize, tilesize, tilesize,this);
 
@@ -158,7 +158,7 @@ public class Board extends JPanel {
 
         // Poruszanie sie
         for (Human human : humans) {
-            moveHuman(human);
+            human.moveHuman(human);
         }
 
         // Infekowanie zdrowych
@@ -175,7 +175,7 @@ public class Board extends JPanel {
         // Zdrowienie chorych
         for (Human human : humans) {
             if (human instanceof Infected) {
-               ((Infected) human).recover((Infected) human, (Healthy) human, newHumans);
+                ((Infected) human).recover(humans);
             }
         }
 
@@ -207,21 +207,4 @@ public class Board extends JPanel {
         repaint();
     }
 
-    private void moveHuman(Human human) {
-        //losowe ruchy agentów
-        int dx = random.nextInt(3) - 1;
-        int dy = random.nextInt(3) - 1;
-
-        //nowe wspolrzedne
-        int newX = human.x + dx;
-        int newY = human.y + dy;
-
-        //nie wychodzenie poza mape
-        if (newX >= 0 && newX < cols) {
-            human.x = newX;
-        }
-        if (newY >= 0 && newY < rows) {
-            human.y = newY;
-        }
-    }
 }
