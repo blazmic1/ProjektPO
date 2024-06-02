@@ -4,13 +4,13 @@
 Projekt został wykonany w języku Java z wykorzystaniem biblioteki Swing
 
 ## Członkowie zespołu
--Błażej Michałek-lider
+-Błażej Michałek-lider <br />
 -Mateusz Balcerek
 
 ## Opis projektu
 Jako zaliczenie została stworzona symulacja epidemii.
-Symulacja polega na sprawdzeniu przebiegu epidemii.Występuje kilka typów ludzi tj. osoby:<br />
--zdrowe <br />
+Symulacja polega na sprawdzeniu przebiegu epidemii.Występuje kilka typów ludzi tj. osoby:
+<br />-zdrowe <br />
 -odporne<br />
 -chore <br />
 -chore nieprzenoszące wirus<br />
