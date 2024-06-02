@@ -164,9 +164,9 @@ public class Board extends JPanel {
         // Infekowanie zdrowych
         for (Human human : humans) {
             if (human instanceof Infected) {
-                for (Human other : humans) {
-                    if (other instanceof Healthy) {
-                        ((Infected) human).infect((Infected) human, (Healthy) other, newHumans);
+                for (Human human1 : humans) {
+                    if (human1 instanceof Healthy) {
+                        ((Infected) human).infect((Infected) human, (Healthy) human1, newHumans);
                     }
                 }
             }
