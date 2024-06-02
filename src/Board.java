@@ -28,13 +28,13 @@ public class Board extends JPanel {
         for (int i = 0; i < infectedTransmitingPeople; i++) {
             int x = random.nextInt(cols);
             int y = random.nextInt(rows);
-            humans.add(new Infected(x, y, random.nextInt(100), 100, true, 14, true));
+            humans.add(new Infected(x, y, random.nextInt(100),0.2, 100, true, 14, true));
         }
 
         for (int i = 0; i < infectedNotTransmitingPeople; i++) {
             int x = random.nextInt(cols);
             int y = random.nextInt(rows);
-            humans.add(new Infected(x, y, random.nextInt(100), 100, true, 14, false));
+            humans.add(new Infected(x, y, random.nextInt(100),0.2, 100, true, 14, false));
         }
 
         for (int i = 0; i < immune; i++) {
@@ -87,7 +87,9 @@ public class Board extends JPanel {
     }
 
 //    public int getDeadCount() {
+//        {
 //
+//        }
 //    }
 
     @Override

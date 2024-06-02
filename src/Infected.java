@@ -5,12 +5,14 @@ import java.util.Random;
 public class Infected extends Human {
     int infectionLength;
     boolean canTransmit;
+    double mortality;
     Random random = new Random();
-    public Infected(int x, int y, int age, int lifespan, boolean infection, int infectionLength,boolean canTransmit) {
+    public Infected(int x, int y, int age,double mortality, int lifespan, boolean infection, int infectionLength,boolean canTransmit) {
         this.x = x;
         this.y = y;
         this.age = age;
-        this.lifespan = lifespan;
+        this.mortality = mortality;
+        this.lifespan = lifespan; // ilosc rund
         this.infection = infection;
         this.infectionLength = infectionLength;
         this.canTransmit = canTransmit;
@@ -21,7 +23,7 @@ public class Infected extends Human {
          if ((infected.x == healthy.x + 1 && infected.y == healthy.y + 1) || (infected.x == healthy.x + 1 && infected.y == healthy.y) || (infected.x == healthy.x + 1 && infected.y == healthy.y - 1) || (infected.x == healthy.x && infected.y == healthy.y + 1) || (infected.x == healthy.x && infected.y == healthy.y - 1) || (infected.x == healthy.x - 1 && infected.y == healthy.y) || (infected.x == healthy.x - 1 && infected.y == healthy.y + 1) || (infected.x == healthy.x - 1 && infected.y == healthy.y - 1)) {
              if (!healthy.immune && healthy.infectionChance > random.nextDouble() && infected.canTransmit) {
                  humans.remove(healthy);
-                 humans.add(new Infected(healthy.x, healthy.y, random.nextInt(100), 100, true, 14, true));
+                 humans.add(new Infected(healthy.x, healthy.y, random.nextInt(100),0.2, 100, true, 14, true));
              }
          }
      }
@@ -32,6 +34,13 @@ public class Infected extends Human {
         }
     }
 
+    void die(List<Human> humans){
+        int count = 0;
+        if (mortality > random.nextDouble() || lifespan > age){
+            humans.remove(this);
+            count++;
+        }
+    }
 
 }
 
