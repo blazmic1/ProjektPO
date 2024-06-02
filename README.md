@@ -11,9 +11,9 @@ Projekt został wykonany w języku Java z wykorzystaniem biblioteki Swing
 Jako zaliczenie została stworzona symulacja epidemii.
 Symulacja polega na sprawdzeniu przebiegu epidemii.Występuje kilka typów ludzi tj. osoby:
 <br />-zdrowe <br />
--odporne<br />
--chore <br />
--chore nieprzenoszące wirus<br />
+- odporne<br />
+- chore <br />
+- chore nieprzenoszące wirus<br />
 Osoby chore po pewnym czasie umierają lub przeżywają i znów stają się zdrowe.
 Na planszy występują dwa obiekty tj. szpitale ,które leczą osoby chore oraz szczepionki,które sprawiają że ludzie zdrowi stają się odporni(na osoby inne niż zdrowe szczepionka nie działa).
 Użytkownik na początku symulacji podaje ilość osób zdrowych,odpornych,chorych nieprzenoszące wirus oraz ilość szpitali,szczepionek i tur.
@@ -21,5 +21,6 @@ Użytkownik na początku symulacji podaje ilość osób zdrowych,odpornych,chory
 ## Zaimplementowane funkcjonalności
 - stworzenie mapy (grid 2D)
 - stworzenie ludzi(zdrowych,chorych,odpornych,chorych nie przenoszących)
-- stworzenie szpitali i szczepionek
+- stworzenie obiektów(szpitali i szczepionek)
 - stworzenie funkcji aktualizującej mapę
+- stworzenie funkcji odpowiadajacych za m.in.przenoszenie choroby,zdrowieniem czy np.szczepieniami
