@@ -5,6 +5,7 @@ import java.util.Random;
 public class Infected extends Human {
     int infectionLength;
     boolean canTransmit;
+    Random random = new Random();
     public Infected(int x, int y, int age, int lifespan, boolean infection, int infectionLength,boolean canTransmit) {
         this.x = x;
         this.y = y;
@@ -17,15 +18,21 @@ public class Infected extends Human {
 
     //infekowanie zdrowych
      void infect(Infected infected, Healthy healthy, List<Human> humans) {
-        Random random = new Random();
-        if ((infected.x == healthy.x + 1 && infected.y == healthy.y + 1) || (infected.x == healthy.x + 1 && infected.y == healthy.y) || (infected.x == healthy.x + 1 && infected.y == healthy.y - 1 ) || (infected.x == healthy.x  && infected.y == healthy.y + 1) || (infected.x == healthy.x  && infected.y == healthy.y -1) || (infected.x == healthy.x - 1 && infected.y == healthy.y  )|| (infected.x == healthy.x - 1 && infected.y == healthy.y + 1 )|| (infected.x == healthy.x - 1 && infected.y == healthy.y - 1  )) {
-               if (healthy.immune == false && healthy.infectionChance > random.nextDouble() && infected.canTransmit == true) {
-                humans.remove(healthy);
-                humans.add(new Infected(healthy.x, healthy.y, random.nextInt(100), 100, true, 14, true));
+         if ((infected.x == healthy.x + 1 && infected.y == healthy.y + 1) || (infected.x == healthy.x + 1 && infected.y == healthy.y) || (infected.x == healthy.x + 1 && infected.y == healthy.y - 1) || (infected.x == healthy.x && infected.y == healthy.y + 1) || (infected.x == healthy.x && infected.y == healthy.y - 1) || (infected.x == healthy.x - 1 && infected.y == healthy.y) || (infected.x == healthy.x - 1 && infected.y == healthy.y + 1) || (infected.x == healthy.x - 1 && infected.y == healthy.y - 1)) {
+             if (!healthy.immune && healthy.infectionChance > random.nextDouble() && infected.canTransmit) {
+                 humans.remove(healthy);
+                 humans.add(new Infected(healthy.x, healthy.y, random.nextInt(100), 100, true, 14, true));
+             }
+         }
+     }
+        void recover(Infected infected,Healthy healthy, List<Human> humans ){
+            if (infected.infectionLength <= 0 )
+            {
+             humans.remove(infected);
+             humans.add(new Healthy(infected.x, infected.y, random.nextInt(100), 100, false, 0, true, 50, false));
             }
-        }
+         }
 
-    }
 
 }
 

@@ -161,45 +161,45 @@ public class Board extends JPanel {
             moveHuman(human);
         }
 
-//        // Infekowanie zdrowych
-//        for (Human human : humans) {
-//            if (human instanceof Infected) {
-//                for (Human other : humans) {
-//                    if (other instanceof Healthy) {
-//                        ((Infected) human).infect((Infected) human, (Healthy) other, newHumans);
-//                    }
-//                }
-//            }
-//        }
+        // Infekowanie zdrowych
+        for (Human human : humans) {
+            if (human instanceof Infected) {
+                for (Human other : humans) {
+                    if (other instanceof Healthy) {
+                        ((Infected) human).infect((Infected) human, (Healthy) other, newHumans);
+                    }
+                }
+            }
+        }
 
-//        // Zdrowienie chorych
-//        for (Human human : humans) {
-//            if (human instanceof Infected) {
-//                //((Infected) human).recover((Infected) human, (Healthy) human, newHumans);
-//            }
-//        }
+        // Zdrowienie chorych
+        for (Human human : humans) {
+            if (human instanceof Infected) {
+               ((Infected) human).recover((Infected) human, (Healthy) human, newHumans);
+            }
+        }
 
-//        // Leczenie w szpitalach
-//        for (Object object : objects) {
-//            if (object instanceof Hospital) {
-//                for (Human human : humans) {
-//                    if (human instanceof Infected) {
-//                        ((Hospital) object).heal((Hospital) object, (Infected) human, newHumans, newObjects);
-//                    }
-//                }
-//            }
-//        }
+        // Leczenie w szpitalach
+        for (Object object : objects) {
+            if (object instanceof Hospital) {
+                for (Human human : humans) {
+                    if (human instanceof Infected) {
+                        ((Hospital) object).heal((Hospital) object, (Infected) human, newHumans, newObjects);
+                    }
+                }
+            }
+        }
 
-//        Szczepienie zdrowych
-//        for (Object object : objects) {
-//            if (object instanceof Vaccine) {
-//                for (Human human : humans) {
-//                    if (human instanceof Healthy) {
-//                       // ((Vaccine) object).vaccine((Vaccine) object, (Healthy) human, newHumans, newObjects);
-//                    }
-//                }
-//            }
-//        }
+        //Szczepienie zdrowych
+        for (Object object : objects) {
+            if (object instanceof Vaccine) {
+                for (Human human : humans) {
+                    if (human instanceof Healthy) {
+                       ((Vaccine) object).vaccine((Vaccine) object, (Healthy) human, newHumans, newObjects);
+                    }
+                }
+            }
+        }
 
         humans = newHumans;
         objects = newObjects;
