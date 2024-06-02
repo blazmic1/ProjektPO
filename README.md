@@ -14,7 +14,6 @@ Symulacja polega na sprawdzeniu przebiegu epidemii.Występuje kilka typów ludzi
 - odporne
 - chore
 - chore nieprzenoszące wirus
-<br />
 Osoby chore po pewnym czasie umierają lub przeżywają i znów stają się zdrowe.
 Na planszy występują dwa obiekty tj. szpitale ,które leczą osoby chore oraz szczepionki,które sprawiają że ludzie zdrowi stają się odporni(na osoby inne niż zdrowe szczepionka nie działa).
 Użytkownik na początku symulacji podaje ilość osób zdrowych,odpornych,chorych nieprzenoszące wirus oraz ilość szpitali,szczepionek i tur.
