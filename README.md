@@ -4,7 +4,7 @@
 Projekt został wykonany w języku Java z wykorzystaniem biblioteki Swing
 
 ## Członkowie zespołu
--Błażej Michałek -lider
+-Błażej Michałek -lider/n
 -Mateusz Balcerek
 
 ## Opis projektu
