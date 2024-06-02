@@ -23,4 +23,4 @@ Użytkownik na początku symulacji podaje ilość osób zdrowych,odpornych,chory
 - stworzenie ludzi(zdrowych,chorych,odpornych,chorych nie przenoszących)
 - stworzenie obiektów(szpitali i szczepionek)
 - stworzenie funkcji aktualizującej mapę
-- stworzenie funkcji odpowiadajacych za m.in.przenoszenie choroby,zdrowieniem czy np.szczepieniami
+- stworzenie funkcji odpowiadajacych za funkcjonalność epidemii m.in.przenoszenie choroby,zdrowieniem czy np.szczepieniami
