@@ -6,6 +6,7 @@ public class Infected extends Human {
     int infectionLength;
     boolean canTransmit;
     double mortality;
+    int count = 0;
     Random random = new Random();
     public Infected(int x, int y, int age,double mortality, int lifespan, boolean infection, int infectionLength,boolean canTransmit) {
         this.x = x;
@@ -35,7 +36,6 @@ public class Infected extends Human {
     }
 
     void die(List<Human> humans){
-        int count = 0;
         if (mortality > random.nextDouble() || lifespan > age){
             humans.remove(this);
             count++;
