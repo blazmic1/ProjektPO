@@ -17,9 +17,9 @@ public class Simulation {
         JFrame frame = new JFrame("Symulacja epidemii");
         frame.setLayout(null);
         frame.setSize(1000, 650);
-        frame.setBackground(Color.GRAY);
+        frame.getContentPane().setBackground(Color.DARK_GRAY);
         frame.setLocationRelativeTo(null);
-        ImageIcon imageIcon = new ImageIcon("healthy.png");
+        ImageIcon imageIcon = new ImageIcon("virus_icon.png");
         frame.setIconImage(imageIcon.getImage());
 
         Board board = new Board();
@@ -28,6 +28,7 @@ public class Simulation {
         JLabel label1 = new JLabel("Podaj ilość rund");
         label1.setBounds(615, -58, 300, 200);
         label1.setFont(new Font(font, Font.PLAIN, 20));
+        label1.setForeground(Color.white);
         frame.add(label1);
 
         JTextField rounds = new JTextField();
@@ -37,6 +38,7 @@ public class Simulation {
         JLabel label2 = new JLabel("Podaj ilość zdrowych");
         label2.setBounds(615, -10, 300, 200);
         label2.setFont(new Font(font, Font.PLAIN, 20));
+        label2.setForeground(Color.white);
         frame.add(label2);
 
         JTextField numberofHealthy = new JTextField();
@@ -46,6 +48,7 @@ public class Simulation {
         JLabel label3 = new JLabel("Podaj ilość chorych");
         label3.setBounds(615, 38, 300, 200);
         label3.setFont(new Font(font, Font.PLAIN, 20));
+        label3.setForeground(Color.white);
         frame.add(label3);
 
         JTextField numberofInfected = new JTextField();
@@ -55,6 +58,7 @@ public class Simulation {
         JLabel label4 = new JLabel("Podaj ilość odpornych");
         label4.setBounds(615, 86, 300, 200);
         label4.setFont(new Font(font, Font.PLAIN, 20));
+        label4.setForeground(Color.white);
         frame.add(label4);
 
         JTextField numberofImmune = new JTextField();
@@ -64,6 +68,7 @@ public class Simulation {
         JLabel label5 = new JLabel("Podaj ilość nie przenoszacych");
         label5.setBounds(615, 134, 300, 200);
         label5.setFont(new Font(font, Font.PLAIN, 20));
+        label5.setForeground(Color.white);
         frame.add(label5);
 
         JTextField numberofnotTransmiting = new JTextField();
@@ -73,6 +78,7 @@ public class Simulation {
         JLabel label6 = new JLabel("Podaj ilość szpitali");
         label6.setBounds(615, 182, 300, 200);
         label6.setFont(new Font(font, Font.PLAIN, 20));
+        label6.setForeground(Color.white);
         frame.add(label6);
 
         JTextField numberofHospitals = new JTextField();
@@ -82,6 +88,7 @@ public class Simulation {
         JLabel label7 = new JLabel("Podaj ilość szczepionek");
         label7.setBounds(615, 230, 300, 200);
         label7.setFont(new Font(font, Font.PLAIN, 20));
+        label7.setForeground(Color.white);
         frame.add(label7);
 
         JTextField numberofVaccines = new JTextField();
@@ -91,6 +98,7 @@ public class Simulation {
         JLabel label8 = new JLabel("Prędkość symulacji");
         label8.setBounds(712, 280, 400, 200);
         label8.setFont(new Font(font, Font.PLAIN, 20));
+        label8.setForeground(Color.white);
         frame.add(label8);
 
         JSlider slider = new JSlider(500, 3500);
@@ -105,6 +113,8 @@ public class Simulation {
 
         slider.setPaintLabels(true);
         slider.setFont(new Font(font,Font.PLAIN,10));
+        slider.setBackground(Color.DARK_GRAY);
+        slider.setForeground(Color.white);
         frame.add(slider);
 
         JButton button = new JButton();
