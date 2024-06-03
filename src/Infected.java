@@ -20,14 +20,19 @@ public class Infected extends Human {
     }
 
     //infekowanie zdrowych
-     void infect(Infected infected, Healthy healthy, List<Human> humans) {
-         if ((infected.x == healthy.x + 1 && infected.y == healthy.y + 1) || (infected.x == healthy.x + 1 && infected.y == healthy.y) || (infected.x == healthy.x + 1 && infected.y == healthy.y - 1) || (infected.x == healthy.x && infected.y == healthy.y + 1) || (infected.x == healthy.x && infected.y == healthy.y - 1) || (infected.x == healthy.x - 1 && infected.y == healthy.y) || (infected.x == healthy.x - 1 && infected.y == healthy.y + 1) || (infected.x == healthy.x - 1 && infected.y == healthy.y - 1)) {
-             if (!healthy.immune && healthy.infectionChance > random.nextDouble() && infected.canTransmit) {
-                 humans.remove(healthy);
-                 humans.add(new Infected(healthy.x, healthy.y, random.nextInt(100),0.2, 100, true, 14, true));
-             }
-         }
-     }
+    void infect(Infected infected, Healthy healthy, List<Human> humans) {
+        if ((infected.x == healthy.x + 1 && infected.y == healthy.y + 1) || (infected.x == healthy.x + 1 && infected.y == healthy.y) || (infected.x == healthy.x + 1 && infected.y == healthy.y - 1) || (infected.x == healthy.x && infected.y == healthy.y + 1) || (infected.x == healthy.x && infected.y == healthy.y - 1) || (infected.x == healthy.x - 1 && infected.y == healthy.y) || (infected.x == healthy.x - 1 && infected.y == healthy.y + 1) || (infected.x == healthy.x - 1 && infected.y == healthy.y - 1)) {
+            if (!healthy.immune && healthy.infectionChance > random.nextDouble() && infected.canTransmit) {
+                humans.remove(healthy);
+                if (random.nextDouble() > 0.5) {
+                    humans.add(new Infected(healthy.x, healthy.y, random.nextInt(100), 0.2, 100, true, 14, true));
+                    }
+                    else{
+                    humans.add(new Infected(healthy.x, healthy.y, random.nextInt(100), 0.2, 100, true, 14, false));
+                }
+                }
+        }
+    }
     void recover(List<Human> humans) {
         if (this.infectionLength <= 0) {
             humans.remove(this);
@@ -43,5 +48,3 @@ public class Infected extends Human {
     }
 
 }
-
-

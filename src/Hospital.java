@@ -13,7 +13,7 @@ public class Hospital extends Object {
 //    public void heal(Hospital hospital, Infected infected, List<Human> humans, List<Object> objects) {
     //Leczenie poprzez szpital
 public void heal(Hospital hospital,Infected infected, List<Human> humans, List<Object> objects) {
-        if ((infected.x == hospital.x + 1 && infected.y == hospital.y + 1) ||(infected.x == hospital.x - 1 && infected.y == hospital.y - 1 )) {
+        if ((infected.x == hospital.x  && infected.y == hospital.y )) {
             Random random = new Random();
             if (hospital.durability > 0) {
                 humans.remove(infected);

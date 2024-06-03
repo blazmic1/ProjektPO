@@ -46,7 +46,8 @@ public class Board extends JPanel {
         for (int i = 0; i < vaccines; i++) {
             int x = random.nextInt(cols);
             int y = random.nextInt(rows);
-            objects.add(new Vaccine(x, y, random.nextDouble()));
+//            objects.add(new Vaccine(x, y, random.nextDouble()));
+            objects.add(new Vaccine(x, y, 0.3));
         }
 
         for (int i = 0; i < hospitals; i++) {
@@ -100,41 +101,41 @@ public class Board extends JPanel {
         // Rysowanie szachownicy
         for (int r = 0; r < rows; r++) {
             for (int c = 0; c < cols; c++) {
-                g2d.setColor((c + r) % 2 == 0 ? Color.white : Color.lightGray);
+                g2d.setColor((c + r) % 2 == 0 ? new Color(34, 34, 34) : new Color(42, 45, 47));
                 g2d.fillRect(c * tilesize, r * tilesize, tilesize, tilesize);
             }
         }
 
         // Rysowanie agentów
-        Image healthyImage = new ImageIcon("healthy.png").getImage();
-        Image infectedImage = new ImageIcon("ill.png").getImage();
-        Image immuneImage = new ImageIcon("immune.jpg").getImage();
-        Image notTransmiting = new ImageIcon("notTransmiting1.png").getImage();
-        Image Hospital = new ImageIcon("Hospital1.jpg").getImage();
-        Image Vaccine = new ImageIcon("Vaccine1.png").getImage();
+        Image healthyImage = new ImageIcon("healthy_new.png").getImage();
+        Image infectedImage = new ImageIcon("infected_new.png").getImage();
+        Image immuneImage = new ImageIcon("immune_new.png").getImage();
+        Image notTransmiting = new ImageIcon("notTransmitting_new.png").getImage();
+        Image Hospital = new ImageIcon("hospital_new.png").getImage();
+        Image Vaccine = new ImageIcon("vaccine_new.png").getImage();
 
         for (Human human : humans) {
             if (human instanceof Healthy healthy) {
 
                 if (healthy.immune) {
-                 //   g2d.setColor(Color.CYAN); //odporny
-                    g2d.drawImage(immuneImage,human.x * tilesize, human.y * tilesize, tilesize, tilesize,this);
+                    //   g2d.setColor(Color.CYAN); //odporny
+                    g2d.drawImage(immuneImage,human.x * tilesize, human.y * tilesize, tilesize, tilesize,null);
                 } else {
-                   // g2d.setColor(Color.green);// zdrowy
-                    g2d.drawImage(healthyImage,human.x * tilesize, human.y * tilesize, tilesize, tilesize,this);
+                    // g2d.setColor(Color.green);// zdrowy
+                    g2d.drawImage(healthyImage,human.x * tilesize, human.y * tilesize, tilesize, tilesize,null);
                 }
 
             } else if (human instanceof Infected infected) {
                 if (infected.canTransmit) {
-                //    g2d.setColor(Color.red); // chory przenoszacy
-                    g2d.drawImage(infectedImage,human.x * tilesize, human.y * tilesize, tilesize, tilesize,this);
+                    //    g2d.setColor(Color.red); // chory przenoszacy
+                    g2d.drawImage(infectedImage,human.x * tilesize, human.y * tilesize, tilesize, tilesize,null);
                 }
                 else{
-                 //   g2d.setColor((Color.black)); //chory nieprzenoszacy
-                g2d.drawImage(notTransmiting,human.x * tilesize, human.y * tilesize, tilesize, tilesize,this);
+                    //   g2d.setColor((Color.black)); //chory nieprzenoszacy
+                    g2d.drawImage(notTransmiting,human.x * tilesize, human.y * tilesize, tilesize, tilesize,null);
                 }
             }
-           // g2d.fillOval(human.x * tilesize, human.y * tilesize, tilesize, tilesize);
+            // g2d.fillOval(human.x * tilesize, human.y * tilesize, tilesize, tilesize);
 
         }
 
@@ -143,14 +144,14 @@ public class Board extends JPanel {
             //szczepionki
             if (object instanceof Vaccine) {
                 g2d.setColor(Color.ORANGE);
-                g2d.drawImage(Vaccine,object.x * tilesize, object.y * tilesize, tilesize, tilesize,this);
+                g2d.drawImage(Vaccine,object.x * tilesize, object.y * tilesize, tilesize, tilesize,null);
 
             } else if (object instanceof Hospital) {
                 //szpital
                 g2d.setColor(Color.BLUE);
-                g2d.drawImage(Hospital,object.x * tilesize, object.y * tilesize, tilesize, tilesize,this);
+                g2d.drawImage(Hospital,object.x * tilesize, object.y * tilesize, tilesize, tilesize,null);
             }
-          //  g2d.fillRect(object.x * tilesize, object.y * tilesize, tilesize, tilesize);
+            //  g2d.fillRect(object.x * tilesize, object.y * tilesize, tilesize, tilesize);
         }
     }
 
@@ -197,7 +198,7 @@ public class Board extends JPanel {
             if (object instanceof Vaccine) {
                 for (Human human : humans) {
                     if (human instanceof Healthy) {
-                       ((Vaccine) object).vaccine((Vaccine) object, (Healthy) human, newHumans, newObjects);
+                        ((Vaccine) object).vaccine((Vaccine) object, (Healthy) human, newHumans, newObjects);
                     }
                 }
             }

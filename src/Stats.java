@@ -8,10 +8,10 @@ public class Stats extends JPanel {
     private int deadCount;
 
     public Stats(Board board) {
-        this.healthyCount = board.getHealthyCount();
+        this.healthyCount = board.getHealthyCount() + board.getImmuneCount();
         this.infectedCount = board.getInfectedCount();
         this.immuneCount = board.getImmuneCount();
-        //this.deadCount = board.getDeadCount();
+     //   this.deadCount = board.getDeathCount(infected);
         this.setPreferredSize(new Dimension(350, 150));
        // this.setBackground(Color.lightGray);
     }
@@ -22,10 +22,10 @@ public class Stats extends JPanel {
 
         g.setFont(new Font("Calibri", Font.PLAIN, 20));
         g.drawString("Statystyki symulacji:", 50, 50);
-        g.drawString("Rundy: " + Simulation.totalRounds,50,90);
+        g.drawString("Rundy: " + GUI.totalRounds,50,90);
         g.drawString("Zdrowi: " + healthyCount, 50, 130);
         g.drawString("Zainfekowani: " + infectedCount, 50, 170);
         g.drawString("Odporni: " + immuneCount, 50, 210);
-        //g.drawString("Martwi: " + deadCount, 50, 250);
+        g.drawString("Martwi: " +deadCount , 50, 250);
     }
 }
