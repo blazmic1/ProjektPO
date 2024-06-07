@@ -165,7 +165,7 @@ public class GUI {
 
         //vaccine
         JLabel label20 = new JLabel();
-        label20.setBounds(810, 275, 100, 100);
+        label20.setBounds(820, 275, 100, 100);
         label20.setIcon(new ImageIcon(vaccine));
         frame.add(label20);
 
@@ -197,19 +197,6 @@ public class GUI {
                             ((Timer) e.getSource()).stop();
 
                             showStatsWindow(board);
-
-//                            JFrame frame1 =  new JFrame("Podsumowanie");
-//                            frame1.setSize(new Dimension(500,500));
-//                            frame1.setLocationRelativeTo(null);
-//                            frame1.setVisible(true);
-//                            frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//
-//                            JLabel label = new JLabel("Symulacja zakonczona po");
-//                            label.setSize(new Dimension(100,200));
-//                            label.setVerticalAlignment();
-//                            frame1.add(label);
-
-                            //System.out.println("Symulacja zakończona po " + totalRounds + " rundach");
                         }
                     }
                 });
