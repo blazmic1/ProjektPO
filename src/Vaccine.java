@@ -11,13 +11,13 @@ public class Vaccine  extends Object{
     }
 
     void vaccine(Vaccine vaccine ,Healthy healthy, List<Human> humans,List<Object> objects) {
-        if(effectiveness > random.nextDouble() && this.x == healthy.x && this.y == healthy.y )
-        {
-         humans.remove(healthy);
-         humans.add(new Healthy(healthy.x, healthy.y, random.nextInt(100), 100, false, 0, true, 50, false));
-         objects.remove(vaccine);
+        if (GUI.roundCount >= 1 ){
+        if (effectiveness > random.nextDouble() && this.x == healthy.x && this.y == healthy.y && healthy.immune == false) {
+            humans.remove(healthy);
+            humans.add(new Healthy(healthy.x, healthy.y, random.nextInt(100), 100, false, 0, true, 50, false));
+            objects.remove(vaccine);
         }
-
+    }
     }
 
 

@@ -134,10 +134,10 @@ public class GUI {
 
 
         //healthy
-        JLabel label10 = new JLabel();
-        label10.setBounds(810, 73, 30, 30);
-        label10.setIcon(new ImageIcon(healthyImage));
-        frame.add(label10);
+        JLabel label11 = new JLabel();
+        label11.setBounds(810, 73, 30, 30);
+        label11.setIcon(new ImageIcon(healthyImage));
+        frame.add(label11);
 
         //infected
         JLabel label12 = new JLabel();
@@ -146,28 +146,28 @@ public class GUI {
         frame.add(label12);
 
         //immune
-        JLabel label14 = new JLabel();
-        label14.setBounds(810, 165, 30, 30);
-        label14.setIcon(new ImageIcon(immuneImage));
-        frame.add(label14);
+        JLabel label13 = new JLabel();
+        label13.setBounds(810, 165, 30, 30);
+        label13.setIcon(new ImageIcon(immuneImage));
+        frame.add(label13);
 
         //infected not transmiting
-        JLabel label16 = new JLabel();
-        label16.setBounds(930, 215, 35, 30);
-        label16.setIcon(new ImageIcon(notTransmiting));
-        frame.add(label16);
+        JLabel label14 = new JLabel();
+        label14.setBounds(930, 215, 35, 30);
+        label14.setIcon(new ImageIcon(notTransmiting));
+        frame.add(label14);
 
         //hospital
-        JLabel label18 = new JLabel();
-        label18.setBounds(810, 265, 30, 30);
-        label18.setIcon(new ImageIcon(Hospital));
-        frame.add(label18);
+        JLabel label15 = new JLabel();
+        label15.setBounds(780, 265, 30, 30);
+        label15.setIcon(new ImageIcon(Hospital));
+        frame.add(label15);
 
         //vaccine
-        JLabel label20 = new JLabel();
-        label20.setBounds(820, 275, 100, 100);
-        label20.setIcon(new ImageIcon(vaccine));
-        frame.add(label20);
+        JLabel label16 = new JLabel();
+        label16.setBounds(820, 275, 100, 100);
+        label16.setIcon(new ImageIcon(vaccine));
+        frame.add(label16);
 
 
         frame.setVisible(true);

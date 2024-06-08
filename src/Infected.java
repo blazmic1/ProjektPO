@@ -36,13 +36,16 @@ public class Infected extends Human {
     void recover(List<Human> humans) {
         if (this.infectionLength <= 0) {
             humans.remove(this);
-            humans.add(new Healthy(this.x, this.y, random.nextInt(100), 100, false, 0.1, false, 0, true));
+            humans.add(new Healthy(this.x, this.y, random.nextInt(100), 100, false, 0, true, 14, false));
         }
+//        else {
+//            infectionLength--;
+//        }
     }
 
     void die(List<Human> humans){
         if (mortality > random.nextDouble() || lifespan > age){
-            humans.remove(this);
+           // humans.remove();
             count++;
         }
     }

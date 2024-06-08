@@ -46,14 +46,13 @@ public class Board extends JPanel {
         for (int i = 0; i < vaccines; i++) {
             int x = random.nextInt(cols);
             int y = random.nextInt(rows);
-//            objects.add(new Vaccine(x, y, random.nextDouble()));
             objects.add(new Vaccine(x, y, 0.3));
         }
 
         for (int i = 0; i < hospitals; i++) {
             int x = random.nextInt(cols);
             int y = random.nextInt(rows);
-            objects.add(new Hospital(x, y, random.nextInt(10)));
+            objects.add(new Hospital(x, y, random.nextInt(4)));
         }
     }
 
@@ -118,25 +117,19 @@ public class Board extends JPanel {
             if (human instanceof Healthy healthy) {
 
                 if (healthy.immune) {
-                    //   g2d.setColor(Color.CYAN); //odporny
                     g2d.drawImage(immuneImage,human.x * tilesize, human.y * tilesize, tilesize, tilesize,null);
                 } else {
-                    // g2d.setColor(Color.green);// zdrowy
                     g2d.drawImage(healthyImage,human.x * tilesize, human.y * tilesize, tilesize, tilesize,null);
                 }
 
             } else if (human instanceof Infected infected) {
                 if (infected.canTransmit) {
-                    //    g2d.setColor(Color.red); // chory przenoszacy
                     g2d.drawImage(infectedImage,human.x * tilesize, human.y * tilesize, tilesize, tilesize,null);
                 }
                 else{
-                    //   g2d.setColor((Color.black)); //chory nieprzenoszacy
                     g2d.drawImage(notTransmiting,human.x * tilesize, human.y * tilesize, tilesize, tilesize,null);
                 }
             }
-            // g2d.fillOval(human.x * tilesize, human.y * tilesize, tilesize, tilesize);
-
         }
 
         // Rysowanie obiektow
@@ -167,38 +160,44 @@ public class Board extends JPanel {
         // Infekowanie zdrowych
         for (Human human : humans) {
             if (human instanceof Infected) {
-                for (Human human1 : humans) {
-                    if (human1 instanceof Healthy) {
-                        ((Infected) human).infect((Infected) human, (Healthy) human1, newHumans);
+                if (GUI.roundCount >= 1) {
+                    for (Human human1 : humans) {
+                        if (human1 instanceof Healthy) {
+                            ((Infected) human).infect((Infected) human, (Healthy) human1, newHumans);
+                        }
                     }
                 }
             }
         }
-
         // Zdrowienie chorych
         for (Human human : humans) {
-            if (human instanceof Infected) {
-                ((Infected) human).recover(humans);
+            if (GUI.roundCount >= 1) {
+                if (human instanceof Infected) {
+                    ((Infected) human).recover(humans);
+                }
             }
         }
-
         // Leczenie w szpitalach
         for (Object object : objects) {
             if (object instanceof Hospital) {
+                if (GUI.roundCount >= 1){
                 for (Human human : humans) {
                     if (human instanceof Infected) {
                         ((Hospital) object).heal((Hospital) object, (Infected) human, newHumans, newObjects);
                     }
                 }
             }
+            }
         }
 
         //Szczepienie zdrowych
         for (Object object : objects) {
             if (object instanceof Vaccine) {
-                for (Human human : humans) {
-                    if (human instanceof Healthy) {
-                        ((Vaccine) object).vaccine((Vaccine) object, (Healthy) human, newHumans, newObjects);
+                if (GUI.roundCount >= 1) {
+                    for (Human human : humans) {
+                        if (human instanceof Healthy) {
+                            ((Vaccine) object).vaccine((Vaccine) object, (Healthy) human, newHumans, newObjects);
+                        }
                     }
                 }
             }

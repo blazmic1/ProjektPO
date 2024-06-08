@@ -8,12 +8,11 @@ public class Stats extends JPanel {
     private int deadCount;
 
     public Stats(Board board) {
-        this.healthyCount = board.getHealthyCount() + board.getImmuneCount();
+        this.healthyCount = board.getHealthyCount();
         this.infectedCount = board.getInfectedCount();
         this.immuneCount = board.getImmuneCount();
      //   this.deadCount = board.getDeathCount(infected);
         this.setPreferredSize(new Dimension(350, 150));
-       // this.setBackground(Color.lightGray);
     }
 
     @Override

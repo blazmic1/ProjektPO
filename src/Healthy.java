@@ -17,4 +17,6 @@ public class Healthy extends Human {
             this.infectionChance = 0;
         else
             this.infectionChance = infectionChance;  }
+
+
 }
