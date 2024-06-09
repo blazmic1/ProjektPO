@@ -10,7 +10,7 @@ public class Vaccine  extends Object{
         this.effectiveness = effectiveness;
     }
 
-    void vaccine(Vaccine vaccine ,Healthy healthy, List<Human> humans,List<Object> objects) {
+    protected void vaccine(Vaccine vaccine ,Healthy healthy, List<Human> humans,List<Object> objects) {
         if (GUI.roundCount >= 1 ){
         if (effectiveness > random.nextDouble() && this.x == healthy.x && this.y == healthy.y && healthy.immune == false) {
             humans.remove(healthy);
