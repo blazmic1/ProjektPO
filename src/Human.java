@@ -8,16 +8,17 @@ public class Human extends Object {
     Random random = new Random();
 
     public void moveHuman(Human human) {
-        //losowe ruchy agentów
+        //random agent moves
         Board board = new Board();
         int dx = random.nextInt(3) - 1;
         int dy = random.nextInt(3) - 1;
 
-        //nowe wspolrzedne
+        //new coordinates
         int newX = human.x + dx;
         int newY = human.y + dy;
 
-        //nie wychodzenie poza mape
+
+        //staying at map
         if (newX >= 0 && newX < board.cols) {
             human.x = newX;
         }

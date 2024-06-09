@@ -16,7 +16,7 @@ public class Hospital extends Object {
             Random random = new Random();
             if (hospital.durability > 0) {
                 humans.remove(infected);
-                humans.add(new Healthy(infected.x, infected.y, random.nextInt(100), 100, false, 0.1, true, 14, true));
+                humans.add(new Healthy(infected.x, infected.y, random.nextInt(100), 100, false, 0, true, 14, true));
                 hospital.durability--;
             } else {
                 objects.remove(hospital);

@@ -2,9 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Stats extends JPanel {
-    private int healthyCount;
-    private int infectedCount;
-    private int immuneCount;
+    private final int healthyCount;
+    private final int infectedCount;
+    private final int immuneCount;
     private int deadCount;
 
     public Stats(Board board) {

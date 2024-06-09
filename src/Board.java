@@ -24,7 +24,7 @@ public class Board extends JPanel {
         for (int i = 0; i < healthyPeople; i++) {
             int x = random.nextInt(cols);
             int y = random.nextInt(rows);
-            humans.add(new Healthy(x, y, random.nextInt(100), 100, false, 0.1, false, 0, true));
+            humans.add(new Healthy(x, y, random.nextInt(100), 100, false, 0.6 , false, 0, true));
         }
 
         //Adding infected agents that can transmit disease
@@ -66,7 +66,7 @@ public class Board extends JPanel {
     protected int getHealthyCount() {
         int count = 0;
         for (Human human : humans) {
-            if (human instanceof Healthy && human.immune == false) {
+            if (human instanceof Healthy && !human.immune) {
                 count++;
             }
         }
@@ -159,6 +159,7 @@ public class Board extends JPanel {
         List<Object> newObjects = new ArrayList<>(objects);
 
         // movement
+        Human human2 = new Human();
         for (Human human : humans) {
             human.moveHuman(human);
         }
@@ -168,7 +169,7 @@ public class Board extends JPanel {
             if (human instanceof Infected infected && GUI.roundCount > 1) {
                     for (Human human1 : humans) {
                         if (human1 instanceof Healthy healthy) {
-                            infected.infect(infected, healthy, newHumans);
+                            infected.infect(infected, healthy,newHumans);
                         }
                     }
                 }
@@ -190,12 +191,13 @@ public class Board extends JPanel {
             }
         }
 
-        //Vaccining healthy
+        //Vaccinating healthy
         for (Object object : objects) {
             if (object instanceof Vaccine vaccine1) {
                     for (Human human : humans) {
                         if (human instanceof Healthy healthy) {
                             vaccine1.vaccine(vaccine1, healthy, newHumans, newObjects);
+
                         }
                     }
                 }
@@ -207,12 +209,8 @@ public class Board extends JPanel {
                         healthy.loosingImmunity(healthy,newHumans);
                 }
             }
-
-
-
         humans = newHumans;
         objects = newObjects;
-
         repaint();
     }
 

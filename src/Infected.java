@@ -19,12 +19,12 @@ public class Infected extends Human {
         this.canTransmit = canTransmit;
     }
 
-    //infekowanie zdrowych
+    //spreading disease
     void infect(Infected infected, Healthy healthy, List<Human> humans) {
         if ((infected.x == healthy.x + 1 && infected.y == healthy.y + 1) || (infected.x == healthy.x + 1 && infected.y == healthy.y) || (infected.x == healthy.x + 1 && infected.y == healthy.y - 1) || (infected.x == healthy.x && infected.y == healthy.y + 1) || (infected.x == healthy.x && infected.y == healthy.y - 1) || (infected.x == healthy.x - 1 && infected.y == healthy.y) || (infected.x == healthy.x - 1 && infected.y == healthy.y + 1) || (infected.x == healthy.x - 1 && infected.y == healthy.y - 1)) {
             if (!healthy.immune && healthy.infectionChance > random.nextDouble() && infected.canTransmit) {
                 humans.remove(healthy);
-                if (random.nextDouble() > 0.5) {
+                if (random.nextDouble() > 0.3) {
                     humans.add(new Infected(healthy.x, healthy.y, random.nextInt(100), 0.2, 100, true, 14, true));
                     }
                     else{
@@ -33,8 +33,9 @@ public class Infected extends Human {
                 }
         }
     }
+    //recovering
    protected void recover(List<Human> humans) {
-        if (this.infectionLength == 0) {
+        if (this.infectionLength <= 0 &&  random.nextDouble() > 0.5) {
             humans.remove(this);
             humans.add(new Healthy(this.x, this.y, random.nextInt(100), 100, false, 0, true, 14, false));
         }

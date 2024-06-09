@@ -1,9 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
+
 
 public class GUI {
     static int roundCount = 0;
@@ -173,46 +170,37 @@ public class GUI {
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                totalRounds = Integer.parseInt(rounds.getText());
-                int x = Integer.parseInt(numberofHealthy.getText());
-                int y = Integer.parseInt(numberofInfected.getText());
-                int z = Integer.parseInt(numberofnotTransmiting.getText());
-                int a = Integer.parseInt(numberofImmune.getText());
-                int b = Integer.parseInt(numberofVaccines.getText());
-                int c = Integer.parseInt(numberofHospitals.getText());
-                board.populateBoard(x, y, z, a, b, c);
-                button.setEnabled(false);
+        button.addActionListener(e -> {
+            totalRounds = Integer.parseInt(rounds.getText());
+            int x = Integer.parseInt(numberofHealthy.getText());
+            int y = Integer.parseInt(numberofInfected.getText());
+            int z = Integer.parseInt(numberofnotTransmiting.getText());
+            int a = Integer.parseInt(numberofImmune.getText());
+            int b = Integer.parseInt(numberofVaccines.getText());
+            int c = Integer.parseInt(numberofHospitals.getText());
+            board.populateBoard(x, y, z, a, b, c);
+            button.setEnabled(false);
 
-                int delay = slider.getValue();
-                timer = new Timer(delay, new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        if (roundCount < totalRounds) {
-                            board.updateSimulation();
-                            roundCount++;
-                        } else {
-                            ((Timer) e.getSource()).stop();
+            int delay = slider.getValue();
+            timer = new Timer(delay, e1 -> {
+                if (roundCount < totalRounds) {
+                    board.updateSimulation();
+                    roundCount++;
+                } else {
+                    ((Timer) e1.getSource()).stop();
 
-                            showStatsWindow(board);
-                        }
-                    }
-                });
+                    showStatsWindow(board);
+                }
+            });
 
-                roundCount = 0;
-                timer.start();
-            }
+            roundCount = 0;
+            timer.start();
         });
 
-        slider.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                if (timer != null) {
-                    timer.setDelay(slider.getValue());
+        slider.addChangeListener(e -> {
+            if (timer != null) {
+                timer.setDelay(slider.getValue());
 
-                }
             }
         });
     }

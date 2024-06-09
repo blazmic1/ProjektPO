@@ -15,15 +15,15 @@ public class Healthy extends Human {
         this.immune = immune;
         this.remainingImmunity = remainingImmunity;
         this.canBeVaccinated = canBeVaccinated;
-        if (this.immune == true)
+        if (this.immune)
             this.infectionChance = 0;
         else
             this.infectionChance = infectionChance;  }
 
     void loosingImmunity(Healthy healthy, List<Human> humans){
-        if (this.immune == true){
-            if (healthy.remainingImmunity <= 0){
-                humans.add(new Healthy(this.x, this.y, random.nextInt(100), 100, false, 0.1, false, 0, true));
+        if (this.immune){
+            if (healthy.remainingImmunity == 0){
+                humans.add(new Healthy(this.x, this.y, random.nextInt(100), 100, false, 0.6, false, 0, true));
                 humans.remove(healthy);
             }
         healthy.remainingImmunity--;
