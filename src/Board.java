@@ -18,37 +18,44 @@ public class Board extends JPanel {
         objects = new ArrayList<>();
     }
 
-    public void populateBoard(int healthyPeople, int infectedTransmitingPeople, int infectedNotTransmitingPeople, int immune, int vaccines, int hospitals) {
+    protected void populateBoard(int healthyPeople, int infectedTransmitingPeople, int infectedNotTransmitingPeople, int immune, int vaccines, int hospitals) {
+
+        //Adding healthy agents
         for (int i = 0; i < healthyPeople; i++) {
             int x = random.nextInt(cols);
             int y = random.nextInt(rows);
             humans.add(new Healthy(x, y, random.nextInt(100), 100, false, 0.1, false, 0, true));
         }
 
+        //Adding infected agents that can transmit disease
         for (int i = 0; i < infectedTransmitingPeople; i++) {
             int x = random.nextInt(cols);
             int y = random.nextInt(rows);
             humans.add(new Infected(x, y, random.nextInt(100),0.2, 100, true, 14, true));
         }
 
+        //Adding infected agents that cannot transmit disease
         for (int i = 0; i < infectedNotTransmitingPeople; i++) {
             int x = random.nextInt(cols);
             int y = random.nextInt(rows);
             humans.add(new Infected(x, y, random.nextInt(100),0.2, 100, true, 14, false));
         }
 
+        //Adding immune agents
         for (int i = 0; i < immune; i++) {
             int x = random.nextInt(cols);
             int y = random.nextInt(rows);
             humans.add(new Healthy(x, y, random.nextInt(100), 100, false, 0, true, 14, false));
         }
 
+        //Adding vaccines
         for (int i = 0; i < vaccines; i++) {
             int x = random.nextInt(cols);
             int y = random.nextInt(rows);
             objects.add(new Vaccine(x, y, 0.3));
         }
 
+        //Adding hospitals
         for (int i = 0; i < hospitals; i++) {
             int x = random.nextInt(cols);
             int y = random.nextInt(rows);
@@ -56,17 +63,17 @@ public class Board extends JPanel {
         }
     }
 
-    public int getHealthyCount() {
+    protected int getHealthyCount() {
         int count = 0;
         for (Human human : humans) {
-            if (human instanceof Healthy && !human.immune) {
+            if (human instanceof Healthy && human.immune == false) {
                 count++;
             }
         }
         return count;
     }
 
-    public int getInfectedCount() {
+    protected int getInfectedCount() {
         int count = 0;
         for (Human human : humans) {
             if (human instanceof Infected) {
@@ -76,7 +83,7 @@ public class Board extends JPanel {
         return count;
     }
 
-    public int getImmuneCount() {
+    protected int getImmuneCount() {
         int count = 0;
         for (Human human : humans) {
             if (human instanceof Healthy && human.immune) {
@@ -86,7 +93,7 @@ public class Board extends JPanel {
         return count;
     }
 
-//    public int getDeadCount() {
+//    protected int getDeadCount() {
 //        {
 //
 //        }
@@ -97,7 +104,7 @@ public class Board extends JPanel {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
 
-        // Rysowanie szachownicy
+        // Drawing a board
         for (int r = 0; r < rows; r++) {
             for (int c = 0; c < cols; c++) {
                 g2d.setColor((c + r) % 2 == 0 ? new Color(34, 34, 34) : new Color(42, 45, 47));
@@ -105,7 +112,7 @@ public class Board extends JPanel {
             }
         }
 
-        // Rysowanie agentów
+        // Drawing agents
         Image healthyImage = new ImageIcon("healthy_new.png").getImage();
         Image infectedImage = new ImageIcon("infected_new.png").getImage();
         Image immuneImage = new ImageIcon("immune_new.png").getImage();
@@ -132,15 +139,15 @@ public class Board extends JPanel {
             }
         }
 
-        // Rysowanie obiektow
+        // Drawing objects
         for (Object object : objects) {
-            //szczepionki
+            //vaccines
             if (object instanceof Vaccine) {
                 g2d.setColor(Color.ORANGE);
                 g2d.drawImage(Vaccine,object.x * tilesize, object.y * tilesize, tilesize, tilesize,null);
 
             } else if (object instanceof Hospital) {
-                //szpital
+                //hospital
                 g2d.setColor(Color.BLUE);
                 g2d.drawImage(Hospital,object.x * tilesize, object.y * tilesize, tilesize, tilesize,null);
             }
@@ -152,15 +159,15 @@ public class Board extends JPanel {
         List<Human> newHumans = new ArrayList<>(humans);
         List<Object> newObjects = new ArrayList<>(objects);
 
-        // Poruszanie sie
+        // movement
         for (Human human : humans) {
             human.moveHuman(human);
         }
 
-        // Infekowanie zdrowych
+        // infecting healthy agents
         for (Human human : humans) {
             if (human instanceof Infected) {
-                if (GUI.roundCount >= 1) {
+                if (GUI.roundCount > 1) {
                     for (Human human1 : humans) {
                         if (human1 instanceof Healthy) {
                             ((Infected) human).infect((Infected) human, (Healthy) human1, newHumans);
@@ -169,18 +176,18 @@ public class Board extends JPanel {
                 }
             }
         }
-        // Zdrowienie chorych
+        // recovering agents
         for (Human human : humans) {
-            if (GUI.roundCount >= 1) {
+            if (GUI.roundCount > 1) {
                 if (human instanceof Infected) {
-                    ((Infected) human).recover(humans);
+                    ((Infected) human).recover(newHumans);
                 }
             }
         }
-        // Leczenie w szpitalach
+        // Recovering in hospital
         for (Object object : objects) {
             if (object instanceof Hospital) {
-                if (GUI.roundCount >= 1){
+                if (GUI.roundCount > 1){
                 for (Human human : humans) {
                     if (human instanceof Infected) {
                         ((Hospital) object).heal((Hospital) object, (Infected) human, newHumans, newObjects);
@@ -190,18 +197,27 @@ public class Board extends JPanel {
             }
         }
 
-        //Szczepienie zdrowych
+        //Vaccining healthy
         for (Object object : objects) {
             if (object instanceof Vaccine) {
-                if (GUI.roundCount >= 1) {
                     for (Human human : humans) {
                         if (human instanceof Healthy) {
                             ((Vaccine) object).vaccine((Vaccine) object, (Healthy) human, newHumans, newObjects);
                         }
                     }
                 }
-            }
         }
+
+            //loosing immunity
+            for (Human human : humans) {
+                if (GUI.roundCount > 1) {
+                    if (human instanceof Healthy) {
+                        ((Healthy) human).loosingImmunity( (Healthy) human,newHumans);
+                    }
+                }
+            }
+
+
 
         humans = newHumans;
         objects = newObjects;
