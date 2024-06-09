@@ -13,7 +13,6 @@ public class Board extends JPanel {
     Random random = new Random();
 
     public Board() {
-        //this.setSize(new Dimension(cols * tilesize, rows * tilesize));
         this.setBounds(0, 5,cols * tilesize,rows * tilesize);
         humans = new ArrayList<>();
         objects = new ArrayList<>();
@@ -166,43 +165,37 @@ public class Board extends JPanel {
 
         // infecting healthy agents
         for (Human human : humans) {
-            if (human instanceof Infected) {
-                if (GUI.roundCount > 1) {
+            if (human instanceof Infected infected && GUI.roundCount > 1) {
                     for (Human human1 : humans) {
-                        if (human1 instanceof Healthy) {
-                            ((Infected) human).infect((Infected) human, (Healthy) human1, newHumans);
+                        if (human1 instanceof Healthy healthy) {
+                            infected.infect(infected, healthy, newHumans);
                         }
                     }
                 }
-            }
         }
         // recovering agents
         for (Human human : humans) {
-            if (GUI.roundCount > 1) {
-                if (human instanceof Infected) {
-                    ((Infected) human).recover(newHumans);
+            if (GUI.roundCount > 1 && human instanceof Infected infected) {
+                    infected.recover(newHumans);
                 }
-            }
         }
         // Recovering in hospital
         for (Object object : objects) {
-            if (object instanceof Hospital) {
-                if (GUI.roundCount > 1){
+            if (object instanceof Hospital hospital && GUI.roundCount > 1) {
                 for (Human human : humans) {
-                    if (human instanceof Infected) {
-                        ((Hospital) object).heal((Hospital) object, (Infected) human, newHumans, newObjects);
+                    if (human instanceof Infected infected) {
+                        hospital.heal(hospital, infected, newHumans, newObjects);
                     }
                 }
-            }
             }
         }
 
         //Vaccining healthy
         for (Object object : objects) {
-            if (object instanceof Vaccine) {
+            if (object instanceof Vaccine vaccine1) {
                     for (Human human : humans) {
-                        if (human instanceof Healthy) {
-                            ((Vaccine) object).vaccine((Vaccine) object, (Healthy) human, newHumans, newObjects);
+                        if (human instanceof Healthy healthy) {
+                            vaccine1.vaccine(vaccine1, healthy, newHumans, newObjects);
                         }
                     }
                 }
@@ -210,10 +203,8 @@ public class Board extends JPanel {
 
             //loosing immunity
             for (Human human : humans) {
-                if (GUI.roundCount > 1) {
-                    if (human instanceof Healthy) {
-                        ((Healthy) human).loosingImmunity( (Healthy) human,newHumans);
-                    }
+                if (GUI.roundCount > 1 && human instanceof Healthy healthy) {
+                        healthy.loosingImmunity(healthy,newHumans);
                 }
             }
 
