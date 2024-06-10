@@ -1,5 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 
 public class GUI {
@@ -190,6 +193,7 @@ public class GUI {
                     ((Timer) e1.getSource()).stop();
 
                     showStatsWindow(board);
+                    export(board);
                 }
             });
 
@@ -215,4 +219,16 @@ private static void showStatsWindow(Board board) {
 
     frame1.setVisible(true);
 }
+
+    private static void export(Board board) {
+        Stats stats = new Stats(board);
+        try{
+            new File("eksportDanych.txt");
+            FileWriter export = new FileWriter("eksportDanych.txt");
+            export.write(stats.getData());
+            export.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -6,7 +5,7 @@ public class Infected extends Human {
     int infectionLength;
     boolean canTransmit;
     double mortality;
-    int count = 0;
+    static int count = 0;
     Random random = new Random();
     public Infected(int x, int y, int age,double mortality, int lifespan, boolean infection, int infectionLength,boolean canTransmit) {
         this.x = x;
@@ -25,10 +24,10 @@ public class Infected extends Human {
             if (!healthy.immune && healthy.infectionChance > random.nextDouble() && infected.canTransmit) {
                 humans.remove(healthy);
                 if (random.nextDouble() > 0.3) {
-                    humans.add(new Infected(healthy.x, healthy.y, random.nextInt(100), 0.2, 100, true, 14, true));
-                    }
-                    else{
-                    humans.add(new Infected(healthy.x, healthy.y, random.nextInt(100), 0.2, 100, true, 14, false));
+                    humans.add(new Infected(healthy.x, healthy.y, healthy.age, 0.005, healthy.lifespan, true, 14, true));
+                }
+                else{
+                    humans.add(new Infected(healthy.x, healthy.y, healthy.age, 0.005, healthy.lifespan, true, 14, false));
                 }
                 }
         }
@@ -45,10 +44,13 @@ public class Infected extends Human {
     }
 
     void die(List<Human> humans){
-        if (mortality > random.nextDouble() || lifespan > age){
+        if (mortality > random.nextDouble()){
             humans.remove(this);
             count++;
         }
     }
 
+    protected static int getDeathCount() {
+        return count;
+    }
 }

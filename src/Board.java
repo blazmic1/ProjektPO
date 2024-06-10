@@ -3,6 +3,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import static java.lang.Math.abs;
 
 public class Board extends JPanel {
     int tilesize = 30;
@@ -24,28 +25,28 @@ public class Board extends JPanel {
         for (int i = 0; i < healthyPeople; i++) {
             int x = random.nextInt(cols);
             int y = random.nextInt(rows);
-            humans.add(new Healthy(x, y, random.nextInt(100), 100, false, 0.6 , false, 0, true));
+            humans.add(new Healthy(x, y, (int) (abs((random.nextGaussian()))*300), 750, false, 0.6, false, 0, true));
         }
 
         //Adding infected agents that can transmit disease
         for (int i = 0; i < infectedTransmitingPeople; i++) {
             int x = random.nextInt(cols);
             int y = random.nextInt(rows);
-            humans.add(new Infected(x, y, random.nextInt(100),0.2, 100, true, 14, true));
+            humans.add(new Infected(x, y, (int) (abs((random.nextGaussian()))*300),0.005, 750, true, 14, true));
         }
 
         //Adding infected agents that cannot transmit disease
         for (int i = 0; i < infectedNotTransmitingPeople; i++) {
             int x = random.nextInt(cols);
             int y = random.nextInt(rows);
-            humans.add(new Infected(x, y, random.nextInt(100),0.2, 100, true, 14, false));
+            humans.add(new Infected(x, y, (int) (abs((random.nextGaussian()))*300),0.005, 750, true, 14, false));
         }
 
         //Adding immune agents
         for (int i = 0; i < immune; i++) {
             int x = random.nextInt(cols);
             int y = random.nextInt(rows);
-            humans.add(new Healthy(x, y, random.nextInt(100), 100, false, 0, true, 14, false));
+            humans.add(new Healthy(x, y, (int) (abs((random.nextGaussian()))*300), 750, false, 0, true, 14, false));
         }
 
         //Adding vaccines
@@ -92,12 +93,6 @@ public class Board extends JPanel {
         }
         return count;
     }
-
-//    protected int getDeadCount() {
-//        {
-//
-//        }
-//    }
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -159,9 +154,19 @@ public class Board extends JPanel {
         List<Object> newObjects = new ArrayList<>(objects);
 
         // movement
-        Human human2 = new Human();
+        //Human human2 = new Human();
         for (Human human : humans) {
             human.moveHuman(human);
+        }
+
+        // getting older
+        for (Human human : humans) {
+            if (GUI.roundCount > 1 && human instanceof Infected infected){
+                infected.getOlder(human);
+            }
+            if (GUI.roundCount > 1 && human instanceof Healthy healthy){
+                healthy.getOlder(human);
+            }
         }
 
         // infecting healthy agents
@@ -188,6 +193,23 @@ public class Board extends JPanel {
                         hospital.heal(hospital, infected, newHumans, newObjects);
                     }
                 }
+            }
+        }
+
+        // dying infected
+        for (Human human : humans) {
+            if (GUI.roundCount > 1 && human instanceof Infected infected) {
+                infected.die(newHumans);
+            }
+        }
+
+        // dying of old age
+        for (Human human : humans) {
+            if (GUI.roundCount > 1 && human instanceof Infected infected){
+                infected.dieOldAge(newHumans);
+            }
+            if (GUI.roundCount > 1 && human instanceof Healthy healthy){
+                healthy.dieOldAge(newHumans);
             }
         }
 

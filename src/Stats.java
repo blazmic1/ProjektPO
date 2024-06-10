@@ -5,14 +5,18 @@ public class Stats extends JPanel {
     private final int healthyCount;
     private final int infectedCount;
     private final int immuneCount;
-    private int deadCount;
+    private final int deadCount;
 
     public Stats(Board board) {
         this.healthyCount = board.getHealthyCount();
         this.infectedCount = board.getInfectedCount();
         this.immuneCount = board.getImmuneCount();
-     //   this.deadCount = board.getDeathCount(infected);
+        this.deadCount = Infected.getDeathCount() + Human.getOldAgeCount();
         this.setPreferredSize(new Dimension(350, 150));
+    }
+
+    public String getData(){
+        return "Zdrowi: " + healthyCount + "\nZainfekowani: " + infectedCount + "\nOdporni: " + immuneCount + "\nMartwi: " + deadCount;
     }
 
     @Override
