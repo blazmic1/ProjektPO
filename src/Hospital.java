@@ -12,7 +12,9 @@ public class Hospital extends Object {
 
     //Recovering in hospital
     protected void heal(Hospital hospital,Infected infected, List<Human> humans, List<Object> objects) {
-        if ((infected.x == hospital.x  && infected.y == hospital.y )) {
+//        if ((infected.x == hospital.x  && infected.y == hospital.y )) {
+        if ((infected.x == hospital.x + 1 && infected.y == hospital.y + 1) || (infected.x == hospital.x + 1 && infected.y == hospital.y) || (infected.x == hospital.x + 1 && infected.y == hospital.y - 1) || (infected.x == hospital.x && infected.y == hospital.y + 1) || (infected.x == hospital.x && infected.y == hospital.y - 1) || (infected.x == hospital.x - 1 && infected.y == hospital.y) || (infected.x == hospital.x - 1 && infected.y == hospital.y + 1) || (infected.x == hospital.x - 1 && infected.y == hospital.y - 1)) {
+
             Random random = new Random();
             if (hospital.durability > 0) {
                 humans.remove(infected);

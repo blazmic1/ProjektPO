@@ -1,6 +1,8 @@
 import java.util.List;
 import java.util.Random;
 
+import static java.lang.Math.abs;
+
 public class Vaccine  extends Object{
     double effectiveness;
     Random random = new Random();
@@ -14,7 +16,7 @@ public class Vaccine  extends Object{
         if (GUI.roundCount >= 1 ){
         if (effectiveness > random.nextDouble() && this.x == healthy.x && this.y == healthy.y && !healthy.immune) {
             humans.remove(healthy);
-            humans.add(new Healthy(healthy.x, healthy.y, random.nextInt(100), 100, false, 0, true, 50, false));
+            humans.add(new Healthy(healthy.x, healthy.y, (int) (abs((random.nextGaussian()))*300), 100, false, 0, true, 30, false));
             objects.remove(vaccine);
         }
     }

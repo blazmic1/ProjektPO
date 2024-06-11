@@ -23,8 +23,9 @@ public class Healthy extends Human {
     void loosingImmunity(Healthy healthy, List<Human> humans){
         if (this.immune){
             if (healthy.remainingImmunity == 0){
-                humans.add(new Healthy(this.x, this.y, this.age, this.lifespan, false, 0.6, false, 0, true));
                 humans.remove(healthy);
+                humans.add(new Healthy(this.x, this.y, this.age, this.lifespan, false, 0.2, false, 0, true));
+
             }
         healthy.remainingImmunity--;
         }

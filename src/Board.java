@@ -25,21 +25,21 @@ public class Board extends JPanel {
         for (int i = 0; i < healthyPeople; i++) {
             int x = random.nextInt(cols);
             int y = random.nextInt(rows);
-            humans.add(new Healthy(x, y, (int) (abs((random.nextGaussian()))*300), 750, false, 0.6, false, 0, true));
+            humans.add(new Healthy(x, y, (int) (abs((random.nextGaussian()))*300), 750, false, 0.2, false, 0, true));
         }
 
         //Adding infected agents that can transmit disease
         for (int i = 0; i < infectedTransmitingPeople; i++) {
             int x = random.nextInt(cols);
             int y = random.nextInt(rows);
-            humans.add(new Infected(x, y, (int) (abs((random.nextGaussian()))*300),0.005, 750, true, 14, true));
+            humans.add(new Infected(x, y, (int) (abs((random.nextGaussian()))*300),0.05, 750, true, 14, true));
         }
 
         //Adding infected agents that cannot transmit disease
         for (int i = 0; i < infectedNotTransmitingPeople; i++) {
             int x = random.nextInt(cols);
             int y = random.nextInt(rows);
-            humans.add(new Infected(x, y, (int) (abs((random.nextGaussian()))*300),0.005, 750, true, 14, false));
+            humans.add(new Infected(x, y, (int) (abs((random.nextGaussian()))*300),0.05, 750, true, 14, false));
         }
 
         //Adding immune agents
@@ -60,7 +60,7 @@ public class Board extends JPanel {
         for (int i = 0; i < hospitals; i++) {
             int x = random.nextInt(cols);
             int y = random.nextInt(rows);
-            objects.add(new Hospital(x, y, random.nextInt(4)));
+            objects.add(new Hospital(x, y, random.nextInt(3)));
         }
     }
 
@@ -154,7 +154,6 @@ public class Board extends JPanel {
         List<Object> newObjects = new ArrayList<>(objects);
 
         // movement
-        //Human human2 = new Human();
         for (Human human : humans) {
             human.moveHuman(human);
         }
@@ -182,9 +181,10 @@ public class Board extends JPanel {
         // recovering agents
         for (Human human : humans) {
             if (GUI.roundCount > 1 && human instanceof Infected infected) {
-                    infected.recover(newHumans);
+                    infected.recover(newHumans,infected);
                 }
         }
+
         // Recovering in hospital
         for (Object object : objects) {
             if (object instanceof Hospital hospital && GUI.roundCount > 1) {

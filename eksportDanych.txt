@@ -1,4 +1,4 @@
-Zdrowi: 64
-Zainfekowani: 15
-Odporni: 20
-Martwi: 6
+Zdrowi: 35
+Zainfekowani: 3
+Odporni: 4
+Martwi: 201
