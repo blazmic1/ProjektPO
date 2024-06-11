@@ -6,7 +6,7 @@ import static java.lang.Math.abs;
 public class Vaccine  extends Object{
     double effectiveness;
     Random random = new Random();
-    public Vaccine(int x,int y, double effectiveness){
+     Vaccine(int x, int y, double effectiveness){
         this.x = x;
         this.y = y;
         this.effectiveness = effectiveness;

@@ -20,7 +20,7 @@ public class Healthy extends Human {
         else
             this.infectionChance = infectionChance;  }
 
-    void loosingImmunity(Healthy healthy, List<Human> humans){
+  protected void loosingImmunity(Healthy healthy, List<Human> humans){
         if (this.immune){
             if (healthy.remainingImmunity == 0){
                 humans.remove(healthy);

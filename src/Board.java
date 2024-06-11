@@ -32,14 +32,14 @@ public class Board extends JPanel {
         for (int i = 0; i < infectedTransmitingPeople; i++) {
             int x = random.nextInt(cols);
             int y = random.nextInt(rows);
-            humans.add(new Infected(x, y, (int) (abs((random.nextGaussian()))*300),0.05, 750, true, 14, true));
+            humans.add(new Infected(x, y, (int) (abs((random.nextGaussian()))*300),0.01, 750, true, 14, true));
         }
 
         //Adding infected agents that cannot transmit disease
         for (int i = 0; i < infectedNotTransmitingPeople; i++) {
             int x = random.nextInt(cols);
             int y = random.nextInt(rows);
-            humans.add(new Infected(x, y, (int) (abs((random.nextGaussian()))*300),0.05, 750, true, 14, false));
+            humans.add(new Infected(x, y, (int) (abs((random.nextGaussian()))*300),0.01, 750, true, 14, false));
         }
 
         //Adding immune agents

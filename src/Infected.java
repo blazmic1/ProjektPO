@@ -19,21 +19,21 @@ public class Infected extends Human {
     }
 
     //spreading disease
-    void infect(Infected infected, Healthy healthy, List<Human> humans) {
+    protected void infect(Infected infected, Healthy healthy, List<Human> humans) {
         if ((infected.x == healthy.x + 1 && infected.y == healthy.y + 1) || (infected.x == healthy.x + 1 && infected.y == healthy.y) || (infected.x == healthy.x + 1 && infected.y == healthy.y - 1) || (infected.x == healthy.x && infected.y == healthy.y + 1) || (infected.x == healthy.x && infected.y == healthy.y - 1) || (infected.x == healthy.x - 1 && infected.y == healthy.y) || (infected.x == healthy.x - 1 && infected.y == healthy.y + 1) || (infected.x == healthy.x - 1 && infected.y == healthy.y - 1)) {
             if (!healthy.immune && healthy.infectionChance > random.nextDouble() && infected.canTransmit) {
                 humans.remove(healthy);
                 if (random.nextDouble() > 0.3) {
-                    humans.add(new Infected(healthy.x, healthy.y, healthy.age, 0.05, healthy.lifespan, true, 14, true));
+                    humans.add(new Infected(healthy.x, healthy.y, healthy.age, 0.01, healthy.lifespan, true, 14, true));
                 }
                 else{
-                    humans.add(new Infected(healthy.x, healthy.y, healthy.age, 0.05, healthy.lifespan, true, 14, false));
+                    humans.add(new Infected(healthy.x, healthy.y, healthy.age, 0.01, healthy.lifespan, true, 14, false));
                 }
                 }
         }
     }
     //recovering
-    void recover(List<Human> humans,Infected infected) {
+    protected void recover(List<Human> humans,Infected infected) {
         if (infected.infectionLength <= 0 &&  random.nextDouble() > 0.5) {
             humans.remove(infected);
             humans.add(new Healthy(infected.x, infected.y, infected.age, infected.lifespan, false, 0, true, 14, false));
@@ -43,7 +43,7 @@ public class Infected extends Human {
         }
     }
 
-    void die(List<Human> humans){
+   protected void die(List<Human> humans){
         if (mortality > random.nextDouble()){
             humans.remove(this);
             count++;
