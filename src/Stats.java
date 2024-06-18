@@ -1,12 +1,20 @@
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * The type Stats.
+ */
 public class Stats extends JPanel {
     private final int healthyCount;
     private final int infectedCount;
     private final int immuneCount;
     private final int deadCount;
 
+    /**
+     * Instantiates a new Stats.
+     *
+     * @param board the board
+     */
     public Stats(Board board) {
         this.healthyCount = board.getHealthyCount();
         this.infectedCount = board.getInfectedCount();
@@ -15,6 +23,11 @@ public class Stats extends JPanel {
         this.setPreferredSize(new Dimension(350, 150));
     }
 
+    /**
+     * Get data string.
+     *
+     * @return the string
+     */
     public String getData(){
         return "Zdrowi: " + healthyCount + "\nZainfekowani: " + infectedCount + "\nOdporni: " + immuneCount + "\nMartwi: " + deadCount;
     }

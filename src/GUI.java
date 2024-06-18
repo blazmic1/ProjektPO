@@ -5,12 +5,30 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 
+/**
+ * The type Gui.
+ */
 public class GUI {
+    /**
+     * The Round count.
+     */
     static int roundCount = 0;
+    /**
+     * The Total rounds.
+     */
     static int totalRounds;
+    /**
+     * The Timer.
+     */
     static Timer timer;
+    /**
+     * The Font.
+     */
     String font = "Calibri";
 
+    /**
+     * Instantiates a new Gui.
+     */
     public GUI() {
         JFrame frame = new JFrame("Symulacja epidemii");
         frame.setLayout(null);

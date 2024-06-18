@@ -5,20 +5,54 @@ import java.util.List;
 import java.util.Random;
 import static java.lang.Math.abs;
 
+/**
+ * The type Board.
+ */
 public class Board extends JPanel {
+    /**
+     * The Tilesize.
+     */
     int tilesize = 30;
+    /**
+     * The Cols.
+     */
     int cols = 20;
+    /**
+     * The Rows.
+     */
     int rows = 20;
+    /**
+     * The Humans.
+     */
     List<Human> humans;
+    /**
+     * The Objects.
+     */
     List<Object> objects;
+    /**
+     * The Random.
+     */
     Random random = new Random();
 
+    /**
+     * Instantiates a new Board.
+     */
     public Board() {
         this.setBounds(0, 5,cols * tilesize,rows * tilesize);
         humans = new ArrayList<>();
         objects = new ArrayList<>();
     }
 
+    /**
+     * Populate board.
+     *
+     * @param healthyPeople                the healthy people
+     * @param infectedTransmitingPeople    the infected transmiting people
+     * @param infectedNotTransmitingPeople the infected not transmiting people
+     * @param immune                       the immune
+     * @param vaccines                     the vaccines
+     * @param hospitals                    the hospitals
+     */
     protected void populateBoard(int healthyPeople, int infectedTransmitingPeople, int infectedNotTransmitingPeople, int immune, int vaccines, int hospitals) {
 
         //Adding healthy agents
@@ -64,6 +98,11 @@ public class Board extends JPanel {
         }
     }
 
+    /**
+     * Gets healthy count.
+     *
+     * @return the healthy count
+     */
     protected int getHealthyCount() {
         int count = 0;
         for (Human human : humans) {
@@ -74,6 +113,11 @@ public class Board extends JPanel {
         return count;
     }
 
+    /**
+     * Gets infected count.
+     *
+     * @return the infected count
+     */
     protected int getInfectedCount() {
         int count = 0;
         for (Human human : humans) {
@@ -84,6 +128,11 @@ public class Board extends JPanel {
         return count;
     }
 
+    /**
+     * Gets immune count.
+     *
+     * @return the immune count
+     */
     protected int getImmuneCount() {
         int count = 0;
         for (Human human : humans) {
@@ -149,6 +198,9 @@ public class Board extends JPanel {
         }
     }
 
+    /**
+     * Update simulation.
+     */
     public void updateSimulation() {
         List<Human> newHumans = new ArrayList<>(humans);
         List<Object> newObjects = new ArrayList<>(objects);

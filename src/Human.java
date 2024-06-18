@@ -1,14 +1,40 @@
 import java.util.List;
 import java.util.Random;
 
+/**
+ * The type Human.
+ */
 public class Human extends Object {
+    /**
+     * The Lifespan.
+     */
     int lifespan;
+    /**
+     * The Age.
+     */
     int age;
+    /**
+     * The Infection.
+     */
     boolean infection;
+    /**
+     * The Immune.
+     */
     boolean immune;
+    /**
+     * The Count.
+     */
     static int count = 0;
+    /**
+     * The Random.
+     */
     Random random = new Random();
 
+    /**
+     * Move human.
+     *
+     * @param human the human
+     */
     public void moveHuman(Human human) {
         //random agent moves
         Board board = new Board();
@@ -29,10 +55,20 @@ public class Human extends Object {
         }
     }
 
+    /**
+     * Get older.
+     *
+     * @param human the human
+     */
     public void getOlder(Human human){
         age++;
     }
 
+    /**
+     * Die old age.
+     *
+     * @param humans the humans
+     */
     public void dieOldAge(List<Human> humans){
         if (age > lifespan){
             humans.remove(this);
@@ -40,6 +76,11 @@ public class Human extends Object {
         }
     }
 
+    /**
+     * Gets old age count.
+     *
+     * @return the old age count
+     */
     protected static int getOldAgeCount() {
         return count;
     }
